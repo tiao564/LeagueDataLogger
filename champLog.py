@@ -184,7 +184,7 @@ def fetchData():
         supTEAM = supTEAM.lower()
         supENEMY = supENEMY.lower()
         print ("{:>14}{:>14}{:>14}{:>14}{:>14}{:>14}{:>14}".format("AdTEAM","SupTeam", "AdENEMY", "SupENEMY", "Win", "Loss", "Total Games"))
-        for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and adENEMY= :supE", {'supT':supTEAM, 'supE':supENEMY}):
+        for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and supENEMY= :supE", {'supT':supTEAM, 'supE':supENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
             percent = (Decimal(row[4])/Decimal(row[6])*100)
@@ -205,7 +205,7 @@ def fetchData():
         adENEMY = adENEMY.lower()
         supENEMY = supENEMY.lower()
         print ("{:>14}{:>14}{:>14}{:>14}{:>14}{:>14}{:>14}".format("AdTEAM","SupTeam", "AdENEMY", "SupENEMY", "Win", "Loss", "Total Games"))
-        for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and adENEMY= :adE and supENEMY= :supE", {'supT':supTEAM, 'adE':adTEAM, 'supE':supENEMY }):
+        for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and adENEMY= :adE and supENEMY= :supE", {'supT':supTEAM, 'adE':adENEMY, 'supE':supENEMY }):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
             percent = (Decimal(row[4])/Decimal(row[6])*100)
@@ -226,7 +226,7 @@ def fetchData():
         supTEAM = supTEAM.lower()
         adENEMY = adENEMY.lower()
         print ("{:>14}{:>14}{:>14}{:>14}{:>14}{:>14}{:>14}".format("AdTEAM","SupTeam", "AdENEMY", "SupENEMY", "Win", "Loss", "Total Games"))
-        for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and supTEAM= :supT and adENEMY= :adE", {'adT':adTEAM, 'supT':supTEAM, 'adE':adTEAM }):
+        for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and supTEAM= :supT and adENEMY= :adE", {'adT':adTEAM, 'supT':supTEAM, 'adE':adENEMY }):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
             percent = (Decimal(row[4])/Decimal(row[6])*100)
