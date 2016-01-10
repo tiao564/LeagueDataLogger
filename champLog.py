@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 from __future__ import print_function
 import sqlite3
+from decimal import *
+
 ###################
 #Connect to the db#
 ###################
@@ -83,6 +85,8 @@ def fetchData():
     print (" 1: ADC VS ADC\n 2: ADC VS SUP\n 3: ADC VS ADC SUP\n 4: SUP VS ADC\n 5: SUP VS SUP\n 6: SUP VS ADC SUP\n 7: ADC SUP VS ADC\n 8: ADC SUP VS SUP\n 9: ADC SUP VS ADC SUP\n all: Dump the whole table!")
     roll_select = raw_input("Pick what match up to get data on: ")
     roll_select = roll_select.lower()
+    allWins = 0
+    allGames = 0
     #######
     # all #
     #######
@@ -104,7 +108,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and adENEMY= :adE", {'adT':adTEAM, 'adE':adENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)
 
     ################
     # 2 ADC vs SUP #
@@ -118,7 +127,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and supENEMY= :supE", {'adT':adTEAM, 'supE':supENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)
 
     ######################
     # 3 ADC vs ADC + SUP #
@@ -135,7 +149,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and adENEMY= :adE and supENEMY= :supE", {'adT':adTEAM, 'adE':adENEMY, 'supE':supENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)
 
     ################
     # 4 SUP vs ADC #
@@ -149,7 +168,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and adENEMY= :adE", {'supT':supTEAM, 'adE':adENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)
 
     ################
     # 5 SUP VS SUP #
@@ -163,7 +187,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and adENEMY= :supE", {'supT':supTEAM, 'supE':supENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)
 
     ######################
     # 6 SUP VS ADC + SUP #
@@ -179,7 +208,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE supTEAM= :supT and adENEMY= :adE and supENEMY= :supE", {'supT':supTEAM, 'adE':adTEAM, 'supE':supENEMY }):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")   
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)    
 
     ######################
     # 7 ADC + SUP VS ADC #
@@ -195,7 +229,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and supTEAM= :supT and adENEMY= :adE", {'adT':adTEAM, 'supT':supTEAM, 'adE':adTEAM }):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")   
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)    
 
     ######################
     # 8 ADC + SUP VS SUP #
@@ -211,8 +250,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and supTEAM= :supT and supENEMY= :supE", {'adT':adTEAM, 'supT':supTEAM, 'supE':supENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("")   
-
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)  
 
     ############################
     # 9 ADC + SUP VS ADC + SUP #
@@ -230,8 +273,12 @@ def fetchData():
         for row in cursor.execute("SELECT * FROM matchupData WHERE adTEAM= :adT and supTEAM= :supT and adENEMY= :adE and supENEMY= :supE", {'adT':adTEAM, 'supT':supTEAM, 'adE':adENEMY, 'supE':supENEMY}):
             for i in range(len(row)):
                 print ("{:>14}".format(str(row[i]).replace('u\'','').replace('(','').replace(')','').replace('\'','')), end="")
-            print ("") 
-
+            percent = (Decimal(row[4])/Decimal(row[6])*100)
+            print ("\n{:>80}".format("win percentage: %.2f"%percent))
+            allWins = allWins + row[4]
+            allGames = allGames + row[6]
+        totalPercent = Decimal(allWins)/Decimal(allGames)*100
+        print("\nTotal win loss in the match up: %.2f"%totalPercent)
 
 def main():
     #############################################
@@ -240,11 +287,14 @@ def main():
     # later on there should be automatic data   #
     # fetching from the riot API                #
     #############################################
-    print ("Hello World!")
-    print ("Do you want to (fetch) data or (input) data? Enter exit to leave the program")
+    print ("\nWelcome to the League matchup data logger!\nDo you want to (fetch) data or (input) data? Enter exit to leave the program")
     select = ""
+    try:
+        tableCreate()
+    except sqlite3.OperationalError:
+        print("")
     while(select != "exit"):
-        select = raw_input("\n>>")    
+        select = raw_input("\ninput, fetch or exit\n>>")    
         select = select.lower()
         if(select=="input"):
             dataEntry()
@@ -252,7 +302,7 @@ def main():
             fetchData()
         elif(select != "exit"):
             print ("Input was not recognized, please type in \"input\" or \"fetch\"\n>>")
-    print ("Have a good day!")
+    print ("\nHave a good day!\n")
 
 if __name__ == "__main__":
     main()
